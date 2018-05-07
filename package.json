@@ -1,0 +1,22 @@
+{
+  "name": "pico_sensor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pico Engine used to send sensor data to subscriptions.",
+  "main": "index.js",
+  "dependencies": {
+    "node-sense-hat": "0.0.2",
+    "pico-engine": "^0.44.1"
+  },
+  "scripts": {
+    "start": "pico-engine"
+  },
+  "pico-engine": {
+        "port": 8080,
+        "modules": {
+            "SH": "./SenseHat.js"
+        }
+    },
+  "author": "Tedrub Modulus",
+  "license": "ISC"
+}
