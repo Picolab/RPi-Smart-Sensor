@@ -22,44 +22,32 @@ var d = Discover({
   //ignoreDataErrors: true // whether to ignore data errors including parse errors
 });
 
-// used example from https://stackoverflow.com/questions/6158933/how-to-make-an-http-post-request-in-node-js
-// An object of options to indicate where to post to
-
 var resources = {},dids = [];
 
 // advertise the process with an object
 d.advertise({
-  name: "PicoEngine" + Math.floor(Math.random() * 20),
+  name: "PicoEngine",
   resources: resources
 });
 
 d.on('added', function(obj) {
-  console.log('A new node has been added.',obj);
-
+  //console.log('A new node has been added.',obj);
   for (var i = 0; i < dids.length; i++) { 
     request.post(
     "http://localhost:8080/sky/event/"+dids[i]+"/12345/discovery/engine_found",
-    { json: { engine : obj } },
-    function (error, response, body) {
-        //if (!error && response.statusCode == 200) {
-        //    console.log(body)
-        //}
-    });
+    { json: obj },
+    function (error, response, body) { });
   }
 
 });
  
 d.on('removed', function(obj) {
-  console.log('A node has been removed.',obj);
+  //console.log('A node has been removed.',obj);
   for (var i = 0; i < dids.length; i++) { 
     request.post(
     "http://localhost:8080/sky/event/"+dids[i]+"/12345/discovery/engine_lost",
-    { json: { engine : obj } },
-    function (error, response, body) {
-        //if (!error && response.statusCode == 200) {
-        //    console.log(body)
-        //}
-    });
+    { json: obj  },
+    function (error, response, body) { });
   }
 });
 
@@ -115,3 +103,4 @@ module.exports = {
         },
     },
 };
+
